@@ -40,8 +40,7 @@ int main(int argc, char *argv[])
 
 		// fork failed
 		else {
-			errno = ECHILD;
-			return ECHILD;
+			return errno;
 		}
 
 	}
