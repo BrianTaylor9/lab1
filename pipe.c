@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 			int status;
 			waitpid(ret, &status, 0);
 			if (!WIFEXITED(status)) {
-				return WEXITSTATUS;
+				return errno;
 			}
         	dup2(fds[0], 0); // input reads from read-end of pipe
 			close(fds[1]);
