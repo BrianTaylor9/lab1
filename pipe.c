@@ -30,8 +30,7 @@ int main(int argc, char *argv[])
 			int status;
 			waitpid(ret, &status, 0);
 			if (!WIFEXITED(status)) {
-				errno = ECHILD;
-				return ECHILD;
+				return WEXITSTATUS;
 			}
         	dup2(fds[0], 0); // input reads from read-end of pipe
 			close(fds[1]);
@@ -45,6 +44,7 @@ int main(int argc, char *argv[])
 
 	}
     dup2(saved_stdout, 1); // redirect output to standard output
+	close(saved_stdout);
 	if (execlp(argv[argc-1], argv[argc-1], NULL) == -1) {
 		return errno;
 	}
